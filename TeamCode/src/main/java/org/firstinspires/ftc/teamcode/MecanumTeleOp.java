@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.*;
  * Example OpMode. Demonstrates use of gyro, color sensor, encoders, and telemetry.
  *
  */
-@TeleOp (name = "Gamepad Control on Mechanum", group = "ftc")
+@TeleOp (name = "Gamepad Control on Mechanum", group = "ftcGamePad")
 public class MecanumTeleOp extends LinearOpMode {
 
     public DcMotor  leftArm     = null;
