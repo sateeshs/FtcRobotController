@@ -39,7 +39,7 @@ double tgtPower = 0;
             if(gamepad1.x) {
                 // Move to0 degrees.
                 servoRight.setPosition(0);
-                servoLeft.setPosition(0);
+                servoLeft.setPosition(1);
             } else if (gamepad1.x || gamepad1.b){
                 servoLeft.setPosition(0.5);
                 //servoRight.setPosition(0.5);

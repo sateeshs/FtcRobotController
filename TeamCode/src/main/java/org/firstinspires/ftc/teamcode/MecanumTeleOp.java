@@ -84,7 +84,7 @@ public class MecanumTeleOp extends LinearOpMode {
             else if (gamepad2.a)
                 leftArm.setPower(ARM_DOWN_POWER);
             else
-                leftArm.setPower(-0.05);
+                leftArm.setPower(0.05);
 
             // Send telemetry message to signify robot running;
             telemetry.addData("claw",  "Offset = %.2f", clawOffset);
