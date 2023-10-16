@@ -38,7 +38,7 @@ double tgtPower = 0;
             //check to see if we need to move the servo
             if(gamepad1.x) {
                 // Move to0 degrees.
-                servoRight.setPosition(0);
+                servoRight.setPosition(1);
                 servoLeft.setPosition(0);
             } else if (gamepad1.x || gamepad1.b){
                 servoLeft.setPosition(0.5);
@@ -50,9 +50,10 @@ double tgtPower = 0;
                 }
                 servoRight.setPosition(position);
 
-            }else if (gamepad1.x){
-                servoRight.setPosition(0);
             }
+//            else if (gamepad1.x){
+//                servoRight.setPosition(1);
+//            }
             telemetry.addData("Servo Position", "%5.2f", position);
             telemetry.addData(">", "Press Stop to end test." );
             telemetry.addData("position", position );
