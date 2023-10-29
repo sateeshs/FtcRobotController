@@ -53,13 +53,13 @@ public class AprilTagVision extends LinearOpMode {
                 //.setLensIntrinsics( 502.186,  502.186, 286.502,  316.433) // Calibration points
                 .build();
 
-        AprilTagProcessor tagProcessor2 = new AprilTagProcessor.Builder()
-                .setDrawAxes(true)
-                .setDrawCubeProjection(true)
-                .setDrawTagID(true)
-                .setDrawTagOutline(true)
-                //.setLensIntrinsics( 502.186,  502.186, 286.502,  316.433) // Calibration points
-                .build();
+//        AprilTagProcessor tagProcessor2 = new AprilTagProcessor.Builder()
+//                .setDrawAxes(true)
+//                .setDrawCubeProjection(true)
+//                .setDrawTagID(true)
+//                .setDrawTagOutline(true)
+//                //.setLensIntrinsics( 502.186,  502.186, 286.502,  316.433) // Calibration points
+//                .build();
 
 
         VisionPortal visionPortal1 = new VisionPortal.Builder()
@@ -71,14 +71,14 @@ public class AprilTagVision extends LinearOpMode {
                 //.enableCamaraMonitoring(true)
                 .build();
 
-        VisionPortal visionPortal2 = new VisionPortal.Builder()
-
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 2"))
-                .setCameraResolution(new Size(RESOLUTION_WIDTH, RESOLUTION_HEIGHT))
-                .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
-                .addProcessor(tagProcessor2)
-                //.enableCamaraMonitoring(true)
-                .build();
+//        VisionPortal visionPortal2 = new VisionPortal.Builder()
+//
+//                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 2"))
+//                .setCameraResolution(new Size(RESOLUTION_WIDTH, RESOLUTION_HEIGHT))
+//                .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
+//                .addProcessor(tagProcessor2)
+//                //.enableCamaraMonitoring(true)
+//                .build();
 
         waitForStart();
         while (!isStopRequested() && opModeIsActive())
@@ -88,7 +88,8 @@ public class AprilTagVision extends LinearOpMode {
             desiredTag  = null;
             //visionPortal.resumeLiveView();`
 
-            tagProcessor =  tagProcessor1.getDetections().size() ==0 ? tagProcessor2 : tagProcessor1;
+           // tagProcessor =  tagProcessor1.getDetections().size() ==0 ? tagProcessor2 : tagProcessor1;
+            tagProcessor = tagProcessor1;
            // tagProcessor.
             // ();
 
@@ -100,6 +101,9 @@ public class AprilTagVision extends LinearOpMode {
                 Map<String, Double> directions = directions(desiredTag);
                 //drive, strafe, turn
                 moveRobot(directions.get("drive"),directions.get("strafe"),directions.get("turn"));
+
+                telemetry.addData("Drive:", directions.get("drive"));
+
 
                 telemetry.addData("April x:", desiredTag.ftcPose.x);
                 telemetry.addData("April y:", desiredTag.ftcPose.y);
@@ -132,7 +136,7 @@ public class AprilTagVision extends LinearOpMode {
         final double MAX_AUTO_STRAFE= 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
         final double MAX_AUTO_TURN  = 0.3;   //  Clip the turn speed to this max value (adjust for your robot)
 
-        boolean targetFound     = false;    // Set to true when an AprilTag target is detected
+        //boolean targetFound     = false;    // Set to true when an AprilTag target is detected
         double  drive           = 0;        // Desired forward power/speed (-1 to +1)
         double  strafe          = 0;        // Desired strafe power/speed (-1 to +1)
         double  turn            = 0;        // Desired turning power/speed (-1 to +1)
@@ -145,7 +149,8 @@ public class AprilTagVision extends LinearOpMode {
             telemetry.addData("Bearing","%3.0f degrees", desiredTag.ftcPose.bearing);
             telemetry.addData("Yaw","%3.0f degrees", desiredTag.ftcPose.yaw);
         } else {
-            telemetry.addData(">","target not found \n");
+            telemetry.addData(">","target not " +
+                    "found \n");
         }
 
         // If Left Bumper is being pressed, AND we have found the desired target, Drive to target Automatically .
