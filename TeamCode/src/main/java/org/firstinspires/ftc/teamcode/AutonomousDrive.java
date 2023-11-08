@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.components.TeamObjectDetector;
+import org.firstinspires.ftc.teamcode.components.TensorFlowDetector;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
@@ -47,7 +49,7 @@ public class AutonomousDrive extends LinearOpMode {
      * The variable to store our instance of the vision portal.
      */
     private VisionPortal visionPortal;
-
+TensorFlowDetector detector;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -71,6 +73,9 @@ public class AutonomousDrive extends LinearOpMode {
         runtime.reset();
         if (opModeIsActive()) {
             while (runtime.seconds() < Total_Time) {
+
+                TeamObjectDetector teamObjectDetector = new TeamObjectDetector("", new String[] {"blue-prop", "read_prop"}, telemetry,hardwareMap);
+                int whereIs = teamObjectDetector.whereTeamObject();
 
                 Map<String, Double> objectPosition =  telemetryTfod();
 
