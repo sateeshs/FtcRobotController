@@ -13,9 +13,8 @@ public class TeamObjectDetector extends TensorFlowDetector {
     private static final int SEC_TO_FIND_OBJECT = 1;
 
     private String teamColor;
-    public TeamObjectDetector(String modelName, String[] labels, Telemetry telemetry, HardwareMap hardwaremap) {
+    public TeamObjectDetector(String modelName, String[] labels, String teamColor, Telemetry telemetry, HardwareMap hardwaremap) {
         super(telemetry, hardwaremap);
-        teamColor = "red";
         this.teamColor = teamColor;
         this.setModelName("20231107-best_float32.tflite");
 //        if (teamColor.equals("red")) {

@@ -18,9 +18,10 @@ public class TfLiteTest extends LinearOpMode {
 
         waitForStart();
     if (opModeIsActive()) {
-        TeamObjectDetector teamObjectDetector = new TeamObjectDetector("", new String[]{"blue-prop", "read-prop"}, telemetry, hardwareMap);
+        TeamObjectDetector teamObjectDetector = new TeamObjectDetector("", new String[]{"blue-prop", "read-prop"},"blue", telemetry, hardwareMap);
         int whereIsProp = teamObjectDetector.whereTeamObject();
         telemetry.addData(">", "objectLocation:", whereIsProp);
+        telemetry.update();
 
     }
     }
