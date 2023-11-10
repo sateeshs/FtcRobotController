@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.*;
  * Example OpMode. Demonstrates use of gyro, color sensor, encoders, and telemetry.
  *
  */
-@TeleOp (name = "Gamepad Control on Mechanum", group = "ftcGamePad")
+@TeleOp (name = "Game pad Control on Mechanum", group = "ftcGamePad")
 public class MecanumTeleOp extends LinearOpMode {
 
     public DcMotor  leftArm     = null;
@@ -25,6 +25,13 @@ public class MecanumTeleOp extends LinearOpMode {
     public static final double ARM_UP_POWER    =  -0.5 ;   // Run arm motor up at 100% power
     public static final double ARM_DOWN_POWER  = 0.5 ;   // Run arm motor down at -30% power
 
+    //Servo variables
+    static final double INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
+    static final int    CYCLE_MS    =   50;     // period of each cycle
+    static final double MAX_POS     =  1.0;     // Maximum rotational position
+    static final double MIN_POS     =  0.0;     // Minimum rotational position
+    double  position = (MAX_POS - MIN_POS) / 2; // Start at halfway position
+    boolean rampUp = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -45,6 +52,7 @@ public class MecanumTeleOp extends LinearOpMode {
         // Define and initialize ALL installed servos.
         leftClaw  = hardwareMap.get(Servo.class, "left_hand");
         rightClaw = hardwareMap.get(Servo.class, "right_hand");
+        double  position = (MAX_POS - MIN_POS) / 2; // Start at halfway position
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
 
@@ -67,7 +75,7 @@ public class MecanumTeleOp extends LinearOpMode {
             left = -gamepad1.left_stick_y;
             right = -gamepad1.right_stick_y;
 
-            // Use gamepad left & right Bumpers to open and close the claw
+            // Use game pad left & right Bumpers to open and close the claw
             if (gamepad2.right_bumper)
                 clawOffset += CLAW_SPEED;
             else if (gamepad2.left_bumper)
@@ -78,7 +86,7 @@ public class MecanumTeleOp extends LinearOpMode {
             leftClaw.setPosition(MID_SERVO + clawOffset);
             rightClaw.setPosition(MID_SERVO - clawOffset);
 
-            // Use gamepad buttons to move the arm up (Y) and down (A)
+            // Use game pad buttons to move the arm up (Y) and down (A)
             if (gamepad2.y)
                 leftArm.setPower(ARM_UP_POWER);
             else if (gamepad2.a)
@@ -86,11 +94,24 @@ public class MecanumTeleOp extends LinearOpMode {
             else
                 leftArm.setPower(0.05);
 
+//
+            if (gamepad2.x){
+                rightClaw.setPosition(0.75);
+                leftClaw.setPosition(0.75);
+                //servoRight.setPosition(position);
+//                servoRight.setPosition(position);
+//                servoLeft.setPosition(0.5);
+            }else if(gamepad2.b)
+            {
+
+
+                rightClaw.setPosition(0.4);
+                leftClaw.setPosition(0.4);
+            }
             // Send telemetry message to signify robot running;
             telemetry.addData("claw",  "Offset = %.2f", clawOffset);
             telemetry.addData("left",  "%.2f", left);
             telemetry.addData("right", "%.2f", right);
-
 
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio, but only when
@@ -108,3 +129,34 @@ public class MecanumTeleOp extends LinearOpMode {
         }
     }
 }
+
+///Servo control sample code
+//This added code will check to see if any of the colored buttons on the F310 game pad are pressed.
+// If the Y button is pressed, it will move the servo to the 0-degree position.
+// If either the X button or B button is pressed,
+// it will move the servo to the 90-degree position.
+// If the A button is pressed, it will move the servo to the 180-degree position.
+// The op mode will also send telemetry data on the servo position to the Driver Station.
+//
+//            double tgtPower = 0;
+//            while (opModeIsActive()) {
+//                tgtPower = -this.game pad1.left_stick_y;
+//                motorTest.setPower(tgtPower);
+//                // check to see if we need to move the servo.
+//                if(game pad1.y) {
+//                    // move to 0 degrees.
+//                    servoTest.setPosition(0);
+//                } else if (game pad1.x || game pad1.b) {
+//                    // move to 90 degrees.
+//                    servoTest.setPosition(0.5);
+//                } else if (game pad1.a) {
+//                    // move to 180 degrees.
+//                    servoTest.setPosition(1);
+//                }
+//                telemetry.addData("Servo Position", servoTest.getPosition());
+//                telemetry.addData("Target Power", tgtPower);
+//                telemetry.addData("Motor Power", motorTest.getPower());
+//                telemetry.addData("Status", "Running");
+//                telemetry.update();
+//
+//            }

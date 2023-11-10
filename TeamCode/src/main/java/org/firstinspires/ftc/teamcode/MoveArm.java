@@ -34,29 +34,53 @@ double tgtPower = 0;
         // Scan servo till stop pressed.
         while(opModeIsActive()){
             tgtPower =  - this.gamepad1.left_stick_y;
-
+//            servoRight.setPosition(1);
+//            servoLeft.setPosition(0);
             //check to see if we need to move the servo
-            if(gamepad1.x) {
-                // Move to0 degrees.
-                servoRight.setPosition(0);
-                servoLeft.setPosition(1);
-            } else if (gamepad1.x || gamepad1.b){
-                servoLeft.setPosition(0.5);
-                //servoRight.setPosition(0.5);
-                position += INCREMENT ;
-                if (position >= MAX_POS ) {
-                    position = MAX_POS;
-                    rampUp = !rampUp;   // Switch ramp direction
+//            if(gamepad1.x) {
+//                // Move to0 degrees.
+//                servoRight.setPosition(1);
+//                servoLeft.setPosition(0);
+//            } else
+                if (gamepad1.x){
+                servoLeft.setPosition(0);
+                servoRight.setPosition(1);
+//                position += INCREMENT ;
+//                if (position >= MAX_POS ) {
+//                    position = MAX_POS;
+//                    rampUp = !rampUp;   // Switch ramp direction
+//                }
+                    //servoRight.setPosition(position);
+//                servoRight.setPosition(position);
+//                servoLeft.setPosition(0.5);
+            }else if(gamepad1.b)
+                {
+//                    position -= INCREMENT ;
+//
+//                    if (position >= MAX_POS ) {
+//                        position = MAX_POS;
+//                        rampUp = !rampUp;   // Switch ramp direction
+//                    }
+//                    // working as expected
+//                    servoRight.setPosition(0.6);
+//                    servoLeft.setPosition(0.4);
+                    //Second test
+                    servoRight.setPosition(1.50);
+                    servoLeft.setPosition(-.50);
                 }
-                servoRight.setPosition(position);
+//            else if (gamepad1.x){
+//                servoRight.setPosition(1);
+//            }
+            telemetry.addData("Left Servo Position", "%5.2f", servoLeft.getPosition());
+            telemetry.addData("Right Servo Position", "%5.2f", servoRight.getPosition());
 
-            }else if (gamepad1.x){
-                servoRight.setPosition(0);
-            }
             telemetry.addData("Servo Position", "%5.2f", position);
             telemetry.addData(">", "Press Stop to end test." );
             telemetry.addData("position", position );
             telemetry.update();
+
+
+
 //            // slew the servo, according to the rampUp (direction) variable.
 //            if (rampUp) {
 //                // Keep stepping up until we hit the max value.
