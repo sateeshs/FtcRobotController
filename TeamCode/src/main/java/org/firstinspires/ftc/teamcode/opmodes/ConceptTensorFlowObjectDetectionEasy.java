@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import android.util.Size;
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -121,11 +123,11 @@ try {
 
 
             tfod = new TfodProcessor.Builder()
-                    .setModelAssetName("20231108-ftc-team-prop.tflite")
+                    .setModelAssetName("model.tflite")
                     .setModelLabels (new String[]{"blue-prop", "red-prop","team-prop"})
-                    //.setIsModelTensorFlow2(true)
-                    //.setIsModelQuantized(true)
-                    //.setModelInputSize(640)
+                    .setIsModelTensorFlow2(true)
+                    .setIsModelQuantized(true)
+                    .setModelInputSize(640)
                     //.setModelAspectRatio(16.0 / 9.0)
 
                     .build();
@@ -137,6 +139,20 @@ try {
                 builder.setCamera(BuiltinCameraDirection.BACK);
             }
             builder.addProcessor(tfod);
+// Choose a camera resolution. Not all cameras support all resolutions.
+            builder.setCameraResolution(new Size(640, 480));
+
+// Enable the RC preview (LiveView).  Set "false" to omit camera monitoring.
+            builder.enableLiveView(true);
+
+// Set the stream format; MJPEG uses less bandwidth than default YUY2.
+            builder.setStreamFormat(VisionPortal.StreamFormat.YUY2);
+
+// Choose whether or not LiveView stops if no processors are enabled.
+// If set "true", monitor shows solid orange screen if no processors enabled.
+// If set "false", monitor shows camera view without annotations.
+            builder.setAutoStopLiveView(false);
+
 
             visionPortal = builder.build();
 //            if (USE_WEBCAM) {
