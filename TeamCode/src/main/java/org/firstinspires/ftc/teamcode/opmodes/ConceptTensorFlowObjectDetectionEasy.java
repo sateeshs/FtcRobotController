@@ -129,7 +129,6 @@ try {
                     //.setIsModelQuantized(true)
                     //.setModelInputSize(640)
                     //.setModelAspectRatio(16.0 / 9.0)
-
                     .build();
             // Create the vision portal the easy way.
             VisionPortal.Builder builder = new VisionPortal.Builder();
