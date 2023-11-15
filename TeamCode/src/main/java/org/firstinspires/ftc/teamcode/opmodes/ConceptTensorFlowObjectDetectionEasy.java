@@ -121,8 +121,8 @@ try {
 
 
             tfod = new TfodProcessor.Builder()
-                    .setModelAssetName("20231108-ftc-team-prop.tflite")
-                    .setModelLabels (new String[]{"blue-prop", "red-prop","team-prop"})
+                    .setModelAssetName("20231115-ftc-team-prop.tflite")
+                    .setModelLabels (new String[]{"blue", "red","-red-blue"})
                     //.setIsModelTensorFlow2(true)
                     //.setIsModelQuantized(true)
                     //.setModelInputSize(640)
