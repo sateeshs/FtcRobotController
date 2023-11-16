@@ -16,17 +16,8 @@ public class TeamObjectDetector extends TensorFlowDetector {
     public TeamObjectDetector(String modelName, String[] labels, String teamColor, Telemetry telemetry, HardwareMap hardwaremap) {
         super(telemetry, hardwaremap);
         this.teamColor = teamColor;
-        this.setModelName("20231115-all-ftc-team-prop.tflite");
-        this.setLabels(new String[]{"blue", "red","-red-blue"});
-//        if (teamColor.equals("red")) {
-//            this.setModelName("2023_Red_Team_Object_3770");
-//            this.setLabels(new String[] {"red_prop"});
-//        } else if (teamColor.equals("blue")){
-//            this.setModelName("2023_Blue_Team_Object_3770");
-//            this.setLabels(new String[] {"blue_prop"});
-//        } else {
-//            throw new IllegalArgumentException("teamColor must be either \"red\" or \"blue\"");
-//        }
+        this.setModelName(modelName);
+        this.setLabels(labels);
     }
 
     public int whereIsTeamObject() {

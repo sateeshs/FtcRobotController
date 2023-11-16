@@ -45,7 +45,7 @@ public class TensorFlowDetector {
 
     /**
      * Sets the model name. Does not do anything after running initModel()
-     * @param modelName A string representing the model name. EX: "Blue_Cone_Test_Model.tflite"
+     * @param modelName A string representing the model name. EX: "model.tflite"
      */
     public void setModelName(String modelName) {
         this.modelName = modelName;
@@ -526,7 +526,7 @@ public class TensorFlowDetector {
     /**
      * Initialize the detector with the given model name. Only needs to be run once
      * @param modelName the name of the model trained (ie. the name of the tflite file).
-     *                  EX: "Blue_Cone_Test_Model.tflite"
+     *                  EX: "model.tflite"
      */
     private void initDetector(String modelName) {
         detector = new TfodProcessor.Builder()

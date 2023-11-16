@@ -9,12 +9,15 @@ import org.firstinspires.ftc.teamcode.components.TeamObjectDetector;
 public class AutonomousTeleOpRed extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
 
         telemetry.addData("Red >", "Press Start");
         telemetry.update();
 
         waitForStart();
+        if(isStopRequested()) return;
+
         if (opModeIsActive()) {
             TeamObjectDetector teamObjectDetector = new TeamObjectDetector("", new String[]{"blue", "read", "-red-blue"},"read", telemetry, hardwareMap);
             teamObjectDetector.initModel("20231115-all-ftc-team-prop.tflite");
