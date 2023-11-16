@@ -29,7 +29,7 @@ public class TeamObjectDetector extends TensorFlowDetector {
 //        }
     }
 
-    public int whereTeamObject () {
+    public int whereIsTeamObject() {
         if (teamColor.equals("red")){
             if (getNumRecognitions() == 0){
                 int timesToTry = (SEC_TO_FIND_OBJECT * 1000) / SLEEP_TIME;
@@ -42,7 +42,7 @@ public class TeamObjectDetector extends TensorFlowDetector {
                     }
                 }
             }
-            Recognition teamObject = getHighestConfidenceRecognition("red_prop");
+            Recognition teamObject = getHighestConfidenceRecognition("red");
             if (getNumRecognitions() == 0) {
                 telemetry.addData("Position 3", "[3] No objects were found, current confidence threshold = %f", getConfidenceThreshold());
                 return 3;
