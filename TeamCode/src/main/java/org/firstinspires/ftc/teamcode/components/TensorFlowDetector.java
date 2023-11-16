@@ -63,7 +63,7 @@ public class TensorFlowDetector {
     /**
      * Initialize the model, and update the recognitions once.
      */
-    public void initModel () {
+    public void initModel (String modelName) {
         initDetector(modelName);
         telemetry.addLine("Model with name " + modelName + " successfully initialized");
 
@@ -541,7 +541,7 @@ public class TensorFlowDetector {
         VisionPortal.Builder builder = new VisionPortal.Builder();
 
         if (USE_WEBCAM) {
-            builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 2"));
+            builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
         } else {
             builder.setCamera(BuiltinCameraDirection.BACK);
         }

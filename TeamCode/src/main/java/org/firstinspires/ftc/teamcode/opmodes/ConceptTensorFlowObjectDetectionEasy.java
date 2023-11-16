@@ -35,9 +35,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
@@ -59,6 +61,7 @@ public class ConceptTensorFlowObjectDetectionEasy extends LinearOpMode {
      * The variable to store our instance of the TensorFlow Object Detection processor.
      */
     private TfodProcessor tfod;
+    private TFObjectDetector tfod2;
 
     /**
      * The variable to store our instance of the vision portal.
@@ -110,6 +113,22 @@ try {
 }
     }   // end runOpMode()
 
+
+    /**
+     * Initialize the TensorFlow Object Detection engine.
+     */
+//    private void initTfod() {
+//        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+//                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+//        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+//        tfodParameters.minResultConfidence = 0.6f;
+//        tfodParameters.isModelTensorFlow2 = false;
+//        tfodParameters.inputSize = 300;
+//        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+//        if (labels != null) {
+//            tfod.loadModelFromFile(TFOD_MODEL_FILE, labels);
+//        }
+//    }
     /**
      * Initialize the TensorFlow Object Detection processor.
      */
@@ -117,27 +136,42 @@ try {
 
         try {
 
-
+            //det.setup();
             // Create the TensorFlow processor the easy way.
-           // tfod = TfodProcessor.easyCreateWithDefaults();
 
+            // tfod = TfodProcessor.easyCreateWithDefaults();
 
-            tfod = new TfodProcessor.Builder()
-                    .setModelAssetName("20231108-ftc-team-prop.tflite")
-                    .setModelLabels (new String[]{"blue-prop", "red-prop","team-prop"})
-                    //.setIsModelTensorFlow2(true)
-                    //.setIsModelQuantized(true)
-                    //.setModelInputSize(640)
+//FTC-KrW3
+            tfod = new TfodProcessor.Builder() //20231115-all-ftc-team-prop.tflite //20231115-ftc-team-prop.tflite
+                    .setModelAssetName("20231115-ftc-team-prop.tflite") //"20231110-ftc-team-prop.tflite"//20231107-best_float32.tflite//CenterStage.tflite
+                    //.setModelLabels (new String[]{"blue", "red","-red-blue"})
+//                    .setIsModelTensorFlow2(true)
+//                    .setIsModelQuantized(true)
+//                    .setModelInputSize(640)
                     //.setModelAspectRatio(16.0 / 9.0)
                     .build();
             // Create the vision portal the easy way.
             VisionPortal.Builder builder = new VisionPortal.Builder();
             if (USE_WEBCAM) {
-                builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 2"));
+                builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
             } else {
                 builder.setCamera(BuiltinCameraDirection.BACK);
             }
             builder.addProcessor(tfod);
+//// Choose a camera resolution. Not all cameras support all resolutions.
+//            builder.setCameraResolution(new Size(640, 360));
+//
+//// Enable the RC preview (LiveView).  Set "false" to omit camera monitoring.
+//            builder.enableLiveView(true);
+//
+//// Set the stream format; MJPEG uses less bandwidth than default YUY2.
+//            builder.setStreamFormat(VisionPortal.StreamFormat.YUY2);
+//
+//// Choose whether or not LiveView stops if no processors are enabled.
+//// If set "true", monitor shows solid orange screen if no processors enabled.
+//// If set "false", monitor shows camera view without annotations.
+//            builder.setAutoStopLiveView(false);
+
 
             visionPortal = builder.build();
 //            if (USE_WEBCAM) {
