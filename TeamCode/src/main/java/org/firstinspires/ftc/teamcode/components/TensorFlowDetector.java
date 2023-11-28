@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.components;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -541,7 +542,9 @@ public class TensorFlowDetector {
         VisionPortal.Builder builder = new VisionPortal.Builder();
 
         if (USE_WEBCAM) {
+            WebcamName webcam  = hardwareMap.get(WebcamName.class, "Webcam 1");
             builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
+
         } else {
             builder.setCamera(BuiltinCameraDirection.BACK);
         }
